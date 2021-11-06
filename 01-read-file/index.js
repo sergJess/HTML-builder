@@ -9,7 +9,7 @@ const fs = require('fs');
  
 // );
 async function ReadFileN(path){
-  const  readStreamFile = fs.createReadStream(path);
+  const  readStreamFile = await fs.createReadStream(path);
   const chunks = [];
   for await (const chunk of readStreamFile) {
     chunks.push(chunk);
