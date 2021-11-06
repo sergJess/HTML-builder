@@ -41,13 +41,24 @@ async function createIndexHtml(inputPath, outputPath, fileName, componentsPath){
         for await(let chunk of readStreamComponent){
           componentChunks.push(chunk);
         }
-        templateFile = templateFile.replace(`{{${componentName}}}`,`${componentChunks.join('\n')}` );
+        templateFile = replaceContent(templateFile, componentChunks.join('\n'), `{{${componentName}}}`);
       }
     }
 
   }
   indexHtml.write(templateFile);
 }
+
+function replaceContent(template, change, splitter ){
+  let tempTemplate = template;
+  if(typeof change === 'string' && typeof splitter === 'string' && typeof template === 'string'){
+    tempTemplate = tempTemplate.split(splitter).join(change);
+    return tempTemplate;
+  }
+  return template;
+}
+
+
 
 async function copyAssets(inputPath, outputPath, folderName){
   await fs.mkdir(path.join(outputPath, folderName), {recursive: true});
