@@ -6,19 +6,18 @@ async function copyDir(){
     await fs.mkdir(path.join(__dirname, 'copy-files'), {recursive: true});
     const files = await fs.readdir(path.join(__dirname, 'files'), {withFileTypes: true});  
     const copiedFiles = await fs.readdir(path.join(__dirname, 'copy-files'), {withFileTypes: true});
-    for(let file of copiedFiles)
+    for await(let file of copiedFiles)
     {
-       
-      fs.unlink(path.join(__dirname, `copy-files/${file.name}`), (err) => {
+      await fs.unlink(path.join(__dirname, `copy-files/${file.name}`), (err) => {
         if (err) console.log(err);   
       });
     }
         
-    for (const file of files)
+    for await(const file of files)
     {
       if(!file.isDirectory())
       {
-        await fsFull.createWriteStream(path.join(__dirname, `copy-files/${file.name}`), 'utf8');
+        await fsFull.createWriteStream(path.join(__dirname, `copy-files/${file.name}`));
         await fs.copyFile(path.join(__dirname, `files/${file.name}`), path.join(__dirname, `copy-files/${file.name}`));
       }
     }
