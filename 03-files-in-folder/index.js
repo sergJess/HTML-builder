@@ -3,7 +3,6 @@ const fs = require('fs/promises');
 
 async function showFiles(inputPath){
   const bytesInKilobytes = 1024;
-  const pathWay = require('path');
   const files = await fs.readdir(inputPath, {withFileTypes: true});
   for await(const file of files)
   {

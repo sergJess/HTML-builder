@@ -2,12 +2,14 @@ const path = require('path');
 const fs = require('fs');
 
 // the same solution
-// const readStreamFile = fs.createReadStream(path.join(__dirname, 'text.txt'), 'utf8');
+
+// const readStreamFile =  fs.createReadStream(path.join(__dirname, 'text.txt'), 'utf8');
 // readStreamFile.on('data', (data)=>{
 //   console.log(data);
-// }
- 
-// );
+// });
+
+
+
 async function ReadFileN(path){
   const  readStreamFile = await fs.createReadStream(path);
   const chunks = [];
